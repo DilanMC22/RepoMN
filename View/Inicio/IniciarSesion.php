@@ -1,3 +1,7 @@
+<?php
+  include_once $_SERVER['DOCUMENT_ROOT'] . '/RepoMN/Controller/InicioController.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -29,7 +33,7 @@
                 </a>
               </div>
 
-              <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
+              <form id="formAuthentication" class="mb-3" action="" method="POST">
                 
                 <div class="mb-3">
                   <label for="email" class="form-label">Correo Electrónico</label>
@@ -39,7 +43,7 @@
                 <div class="mb-3 form-password-toggle">
                   <div class="d-flex justify-content-between">
                     <label class="form-label" for="password">Contraseña</label>
-                    <a href="auth-forgot-password-basic.html">
+                    <a href="RecuperarAcceso.php">
                       <small>Olvidó su contraseña?</small>
                     </a>
                   </div>
@@ -50,14 +54,14 @@
                 </div>
 
                 <div class="mb-3">
-                  <button class="btn btn-primary d-grid w-100" type="submit">Procesar</button>
+                  <button class="btn btn-primary d-grid w-100" id="btnIniciarSesion" name="btnIniciarSesion" type="submit">Procesar</button>
                 </div>
 
               </form>
 
               <p class="text-center">
                 <span>Nuevo en nuestro sistema?</span>
-                <a href="auth-register-basic.html">
+                <a href="Registro.php">
                   <span>Crear una cuenta</span>
                 </a>
               </p>

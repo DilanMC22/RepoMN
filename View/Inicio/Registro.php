@@ -58,7 +58,7 @@
 
               <p class="text-center">
                 <span>Ya tienes una cuenta?</span>
-                <a href="auth-login-basic.html">
+                <a href="IniciarSesion.php">
                   <span>Iniciar Sesión</span>
                 </a>
               </p>

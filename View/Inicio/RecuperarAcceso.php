@@ -37,7 +37,7 @@
                 <button class="btn btn-primary d-grid w-100">Procesar</button>
               </form>
               <div class="text-center">
-                <a href="auth-login-basic.html" class="d-flex align-items-center justify-content-center">
+                <a href="IniciarSesion.php" class="d-flex align-items-center justify-content-center">
                   Regresar
                 </a>
               </div>
