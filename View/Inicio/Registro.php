@@ -44,12 +44,13 @@
               <form id="formAuthentication" class="mb-3" action="" method="POST">
                 <div class="mb-3">
                   <label for="username" class="form-label">Identificación</label>
-                  <input type="text" class="form-control" id="Identificacion" name="Identificacion" />
+                  <input type="text" class="form-control" id="Identificacion" name="Identificacion"
+                  onkeyup="ConsultarNombre();" />
                 </div>
 
                  <div class="mb-3">
                   <label for="username" class="form-label">Nombre</label>
-                  <input type="text" class="form-control" id="Nombre" name="Nombre" />
+                  <input type="text" class="form-control" id="Nombre" name="Nombre" readOnly="true" />
                 </div>
 
                 <div class="mb-3">
@@ -86,6 +87,7 @@
     <script src="../js/perfect-scrollbar.js"></script>
     <script src="../js/menu.js"></script>
     <script src="../js/main.js"></script>
+    <script src="../js/funciones.js"></script>
     <script async defer src="https://buttons.github.io/buttons.js"></script>
   </body>
 </html>
