@@ -1,3 +1,7 @@
+<?php
+  include_once $_SERVER['DOCUMENT_ROOT'] . '/RepoMN/Controller/InicioController.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -12,6 +16,7 @@
     <link rel="stylesheet" href="../css/demo.css" />
     <link rel="stylesheet" href="../css/perfect-scrollbar.css" />
     <link rel="stylesheet" href="../css/page-auth.css" />
+    <link rel="stylesheet" href="../css/estilos.css" />
     <script src="../js/helpers.js"></script>
     <script src="../js/config.js"></script>
   </head>
@@ -28,8 +33,15 @@
                   <span class="app-brand-text demo text-body fw-bolder">Crear Cuenta</span>
                 </a>
               </div>
-              
-              <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
+
+              <?php
+                if(isset($_POST["Mensaje"]))
+                {
+                    echo '<div class="alert alert-primary centrado">' . $_POST["Mensaje"] . '</div>';
+                }
+              ?>
+
+              <form id="formAuthentication" class="mb-3" action="" method="POST">
                 <div class="mb-3">
                   <label for="username" class="form-label">Identificación</label>
                   <input type="text" class="form-control" id="Identificacion" name="Identificacion" />
@@ -42,7 +54,7 @@
 
                 <div class="mb-3">
                   <label for="email" class="form-label">Correo Electrónico</label>
-                  <input type="text" class="form-control" id="CorreoElectronico" name="CorreoElectronico" />
+                  <input type="email" class="form-control" id="CorreoElectronico" name="CorreoElectronico" />
                 </div>
                 
                 <div class="mb-3 form-password-toggle">
@@ -53,7 +65,7 @@
                   </div>
                 </div>
 
-                <button class="btn btn-primary d-grid w-100">Procesar</button>
+                <button class="btn btn-primary d-grid w-100" id="btnCrearCuenta" name="btnCrearCuenta" type="submit">Procesar</button>
               </form>
 
               <p class="text-center">
