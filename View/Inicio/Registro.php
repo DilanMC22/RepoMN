@@ -41,7 +41,7 @@
                 }
               ?>
 
-              <form id="formAuthentication" class="mb-3" action="" method="POST">
+              <form id="formRegistro" class="mb-3" action="" method="POST">
                 <div class="mb-3">
                   <label for="username" class="form-label">Identificación</label>
                   <input type="text" class="form-control" id="Identificacion" name="Identificacion"
@@ -60,10 +60,7 @@
                 
                 <div class="mb-3 form-password-toggle">
                   <label class="form-label" for="password">Contraseña</label>
-                  <div class="input-group input-group-merge">
-                     <input type="password" class="form-control" id="Contrasenna" name="Contrasenna" />
-                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
-                  </div>
+                  <input type="password" class="form-control" id="Contrasenna" name="Contrasenna" />
                 </div>
 
                 <button class="btn btn-primary d-grid w-100" id="btnCrearCuenta" name="btnCrearCuenta" type="submit">Procesar</button>
@@ -81,7 +78,8 @@
       </div>
     </div>
 
-    <script src="../js/jquery.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
     <script src="../js/popper.js"></script>
     <script src="../js/bootstrap.js"></script>
     <script src="../js/perfect-scrollbar.js"></script>

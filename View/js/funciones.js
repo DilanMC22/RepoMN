@@ -18,3 +18,40 @@ function ConsultarNombre()
         });
     }    
 }
+
+$(function () {
+
+    $("#formRegistro").validate({
+        rules: {
+            Identificacion: {
+                required: true
+            },
+            Nombre: {
+                required: true
+            },
+            CorreoElectronico: {
+                required: true
+            },
+            Contrasenna: {
+                required: true,
+                minlength: 6
+            },
+        },
+        messages: {
+            Identificacion: {
+                required: "* Requerido"
+            },
+            Nombre: {
+                required: "* Requerido"
+            },
+            CorreoElectronico: {
+                required: "* Requerido"
+            },
+            Contrasenna: {
+                required: "* Requerido",
+                minlength: "* Formato incorrecto"
+            }
+        }
+    });
+    
+});
