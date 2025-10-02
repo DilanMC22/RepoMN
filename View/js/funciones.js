@@ -33,8 +33,7 @@ $(function () {
                 required: true
             },
             Contrasenna: {
-                required: true,
-                minlength: 6
+                required: true
             },
         },
         messages: {
@@ -48,8 +47,7 @@ $(function () {
                 required: "* Requerido"
             },
             Contrasenna: {
-                required: "* Requerido",
-                minlength: "* Formato incorrecto"
+                required: "* Requerido"
             }
         }
     });
