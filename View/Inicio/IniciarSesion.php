@@ -1,24 +1,14 @@
 <?php
+  include_once $_SERVER['DOCUMENT_ROOT'] . '/RepoMN/View/LayoutExterno.php';
   include_once $_SERVER['DOCUMENT_ROOT'] . '/RepoMN/Controller/InicioController.php';
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-    <title>Proyecto Web MN</title>
-    <meta name="description" content="" />
-    
-    <link rel="stylesheet" href="../css/boxicons.css" />
-    <link rel="stylesheet" href="../css/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="../css/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="../css/demo.css" />
-    <link rel="stylesheet" href="../css/perfect-scrollbar.css" />
-    <link rel="stylesheet" href="../css/page-auth.css" />
-    <script src="../js/helpers.js"></script>
-    <script src="../js/config.js"></script>
-  </head>
+  
+  <?php
+      ShowCSS()
+  ?>
 
   <body>
     <div class="container-xxl">
@@ -33,7 +23,14 @@
                 </a>
               </div>
 
-              <form id="formAuthentication" class="mb-3" action="" method="POST">
+              <?php
+                if(isset($_POST["Mensaje"]))
+                {
+                    echo '<div class="alert alert-primary centrado">' . $_POST["Mensaje"] . '</div>';
+                }
+              ?>
+
+              <form id="formInicioSesion" class="mb-3" action="" method="POST">
                 
                 <div class="mb-3">
                   <label for="email" class="form-label">Correo Electrónico</label>
@@ -41,15 +38,13 @@
                 </div>
 
                 <div class="mb-3 form-password-toggle">
-                  <div class="d-flex justify-content-between">
-                    <label class="form-label" for="password">Contraseña</label>
+                  <label class="form-label" for="password">Contraseña</label>
+                  <input type="password" class="form-control" id="Contrasenna" name="Contrasenna" />
+                  
+                  <div class="d-flex justify-content-end">
                     <a href="RecuperarAcceso.php">
                       <small>Olvidó su contraseña?</small>
                     </a>
-                  </div>
-                  <div class="input-group input-group-merge">
-                    <input type="password" class="form-control" id="Contrasenna" name="Contrasenna" />
-                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                   </div>
                 </div>
 
@@ -72,12 +67,10 @@
       </div>
     </div>
 
-    <script src="../js/jquery.js"></script>
-    <script src="../js/popper.js"></script>
-    <script src="../js/bootstrap.js"></script>
-    <script src="../js/perfect-scrollbar.js"></script>
-    <script src="../js/menu.js"></script>
-    <script src="../js/main.js"></script>
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <?php
+      ShowJS()
+    ?>
+    <script src="../js/InicioSesion.js"></script>
+  
   </body>
 </html>

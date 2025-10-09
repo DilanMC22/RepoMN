@@ -7,7 +7,7 @@
         {
             $context = OpenConnection();
 
-            $sentencia = "CALL CrearCuenta2('$identificacion', '$nombre', '$correoElectronico', '$contrasenna')";
+            $sentencia = "CALL CrearCuenta('$identificacion', '$nombre', '$correoElectronico', '$contrasenna')";
             $resultado = $context -> query($sentencia);
 
             CloseConnection($context);
@@ -20,5 +20,25 @@
             return false;
         }
     }
+
+    function ValidarCuentaModel($correoElectronico,$contrasenna)
+    {
+        try
+        {
+            $context = OpenConnection();
+
+            $sentencia = "CALL ValidarCuenta('$correoElectronico', '$contrasenna')";
+            $resultado = $context -> query($sentencia);
+
+            CloseConnection($context);
+
+            return $resultado;
+        }
+        catch(Exception $error)
+        {
+            SaveError($error);
+            return null;
+        }
+    }    
 
 ?>

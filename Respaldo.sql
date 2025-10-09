@@ -18,6 +18,55 @@ USE `mn_bd`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `tberror`
+--
+
+DROP TABLE IF EXISTS `tberror`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tberror` (
+  `ConsecutivoError` int(11) NOT NULL AUTO_INCREMENT,
+  `Mensaje` varchar(8000) NOT NULL,
+  `FechaHora` datetime NOT NULL,
+  PRIMARY KEY (`ConsecutivoError`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tberror`
+--
+
+LOCK TABLES `tberror` WRITE;
+/*!40000 ALTER TABLE `tberror` DISABLE KEYS */;
+INSERT INTO `tberror` VALUES (2,'PROCEDURE mn_bd.CrearCuent does not exist','2025-10-08 20:12:33'),(3,'Unknown column \'CorreoElectronico\' in \'field list\'','2025-10-08 20:14:38');
+/*!40000 ALTER TABLE `tberror` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbperfil`
+--
+
+DROP TABLE IF EXISTS `tbperfil`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tbperfil` (
+  `ConsecutivoPerfil` int(11) NOT NULL AUTO_INCREMENT,
+  `Nombre` varchar(50) NOT NULL,
+  PRIMARY KEY (`ConsecutivoPerfil`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbperfil`
+--
+
+LOCK TABLES `tbperfil` WRITE;
+/*!40000 ALTER TABLE `tbperfil` DISABLE KEYS */;
+INSERT INTO `tbperfil` VALUES (1,'Usuario Administrador'),(2,'Usuario Regular');
+/*!40000 ALTER TABLE `tbperfil` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tbusuario`
 --
 
@@ -25,9 +74,17 @@ DROP TABLE IF EXISTS `tbusuario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tbusuario` (
+  `ConsecutivoUsuario` int(11) NOT NULL AUTO_INCREMENT,
   `Identificacion` varchar(15) NOT NULL,
-  `Nombre` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `Nombre` varchar(255) NOT NULL,
+  `CorreoElectronico` varchar(100) NOT NULL,
+  `Contrasenna` varchar(10) NOT NULL,
+  `Estado` bit(1) NOT NULL,
+  `ConsecutivoPerfil` int(11) NOT NULL,
+  PRIMARY KEY (`ConsecutivoUsuario`),
+  KEY `FK_Usuario_Perfil` (`ConsecutivoPerfil`),
+  CONSTRAINT `FK_Usuario_Perfil` FOREIGN KEY (`ConsecutivoPerfil`) REFERENCES `tbperfil` (`ConsecutivoPerfil`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,7 +93,7 @@ CREATE TABLE `tbusuario` (
 
 LOCK TABLES `tbusuario` WRITE;
 /*!40000 ALTER TABLE `tbusuario` DISABLE KEYS */;
-INSERT INTO `tbusuario` VALUES ('304590415','EDUARDO JOSE CALVO CASTILLO');
+INSERT INTO `tbusuario` VALUES (2,'304590415','EDUARDO JOSE CALVO CASTILLO','ecalvo90415@ufide.ac.cr','90415',_binary '',2),(3,'208360632','BARRANTES BOGANTES ANTONY','abarrantes60632@ufide.ac.cr','60632',_binary '',2);
 /*!40000 ALTER TABLE `tbusuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -53,11 +110,74 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `CrearCuenta`(pIdentificacion varchar(15), pNombre varchar(255))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CrearCuenta`(
+	pIdentificacion varchar(15), 
+	pNombre varchar(255),
+    pCorreoElectronico varchar(100), 
+    pContrasenna varchar(10)
+)
 BEGIN
 
-	INSERT INTO tbusuario (Identificacion, Nombre)
-    VALUES (pIdentificacion, pNombre);
+	INSERT INTO tbusuario (Identificacion, Nombre, CorreoElectronico, Contrasenna, Estado, ConsecutivoPerfil)
+    VALUES (pIdentificacion, pNombre, pCorreoElectronico, pContrasenna, 1, 2);
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `RegistrarError` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `RegistrarError`(
+	pMensaje varchar(8000)
+)
+BEGIN
+
+	INSERT INTO tberror (Mensaje,FechaHora)
+	VALUES (pMensaje, NOW());
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `ValidarCuenta` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ValidarCuenta`(
+    pCorreoElectronico varchar(100), 
+    pContrasenna varchar(10)
+)
+BEGIN
+
+	SELECT 	ConsecutivoUsuario,
+			Identificacion,
+			Nombre,
+			CorreoElectronico,
+			Contrasenna,
+			Estado,
+			ConsecutivoPerfil
+	FROM 	tbusuario
+    WHERE 	CorreoElectronico = pCorreoElectronico
+		AND Contrasenna = pContrasenna
+        AND Estado = 1;
 
 END ;;
 DELIMITER ;
@@ -75,4 +195,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-10-01 20:40:25
+-- Dump completed on 2025-10-08 20:56:56
