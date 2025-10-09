@@ -1,15 +1,24 @@
 <?php
+    include_once $_SERVER['DOCUMENT_ROOT'] . '/RepoMN/Model/ConexionModel.php';
 
-function CrearCuentaModel($identificacion,$nombre,$correoElectronico,$contrasenna)
-{
-    $context = mysqli_connect("localhost:3307", "root", "", "mn_bd");
+    function CrearCuentaModel($identificacion,$nombre,$correoElectronico,$contrasenna)
+    {
+        try
+        {
+            $context = OpenConnection();
 
-    $sentencia = "CALL CrearCuenta('$identificacion', '$nombre')";
-    $resultado = $context -> query($sentencia);
+            $sentencia = "CALL CrearCuenta2('$identificacion', '$nombre', '$correoElectronico', '$contrasenna')";
+            $resultado = $context -> query($sentencia);
 
-    $context -> close();
+            CloseConnection($context);
 
-    return $resultado;
-}
+            return $resultado;
+        }
+        catch(Exception $error)
+        {
+            SaveError($error);
+            return false;
+        }
+    }
 
 ?>
