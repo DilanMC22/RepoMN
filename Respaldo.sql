@@ -67,6 +67,34 @@ INSERT INTO `tbperfil` VALUES (1,'Usuario Administrador'),(2,'Usuario Regular');
 UNLOCK TABLES;
 
 --
+-- Table structure for table `tbproducto`
+--
+
+DROP TABLE IF EXISTS `tbproducto`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tbproducto` (
+  `ConsecutivoProducto` int(11) NOT NULL AUTO_INCREMENT,
+  `Nombre` varchar(100) NOT NULL,
+  `Descripcion` varchar(2000) NOT NULL,
+  `Precio` decimal(10,2) NOT NULL,
+  `Estado` bit(1) NOT NULL,
+  `Imagen` varchar(250) NOT NULL,
+  PRIMARY KEY (`ConsecutivoProducto`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbproducto`
+--
+
+LOCK TABLES `tbproducto` WRITE;
+/*!40000 ALTER TABLE `tbproducto` DISABLE KEYS */;
+INSERT INTO `tbproducto` VALUES (1,'Play Station 5','Consola de videojuegos',550.00,_binary '','123456');
+/*!40000 ALTER TABLE `tbproducto` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tbusuario`
 --
 
@@ -84,7 +112,7 @@ CREATE TABLE `tbusuario` (
   PRIMARY KEY (`ConsecutivoUsuario`),
   KEY `FK_Usuario_Perfil` (`ConsecutivoPerfil`),
   CONSTRAINT `FK_Usuario_Perfil` FOREIGN KEY (`ConsecutivoPerfil`) REFERENCES `tbperfil` (`ConsecutivoPerfil`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,13 +121,66 @@ CREATE TABLE `tbusuario` (
 
 LOCK TABLES `tbusuario` WRITE;
 /*!40000 ALTER TABLE `tbusuario` DISABLE KEYS */;
-INSERT INTO `tbusuario` VALUES (2,'304590415','EDUARDO JOSE CALVO CASTILLO','ecalvo90415@ufide.ac.cr','90415',_binary '',2),(3,'208360632','BARRANTES BOGANTES ANTONY','abarrantes60632@ufide.ac.cr','60632',_binary '',2);
+INSERT INTO `tbusuario` VALUES (2,'304590415','EDUARDO JOSE CALVO CASTILLO','ecalvo90415@ufide.ac.cr','90415',_binary '',2),(3,'208360632','BARRANTES BOGANTES ANTONY','abarrantes60632@ufide.ac.cr','G1A4MB0G',_binary '',2),(4,'207960874','BRANDON JOSUE CORELLA SANCHEZ','bcorella60874@ufide.ac.cr','5QGYZHGG',_binary '',2);
 /*!40000 ALTER TABLE `tbusuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
 -- Dumping routines for database 'mn_bd'
 --
+/*!50003 DROP PROCEDURE IF EXISTS `ActualizarContrasenna` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ActualizarContrasenna`(
+	pConsecutivoUsuario int(11), 
+	pContrasennaGenerada varchar(10)
+)
+BEGIN
+
+	UPDATE 	tbUsuario
+	SET		Contrasenna = pContrasennaGenerada
+    WHERE	ConsecutivoUsuario = pConsecutivoUsuario;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `ConsultarProductos` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ConsultarProductos`()
+BEGIN
+
+	SELECT  ConsecutivoProducto,
+			Nombre,
+			Descripcion,
+			Precio,
+			Estado,
+			Imagen
+	FROM 	tbproducto;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `CrearCuenta` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -151,6 +232,38 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `ValidarCorreo` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ValidarCorreo`(
+    pCorreoElectronico varchar(100)
+)
+BEGIN
+
+	SELECT 	ConsecutivoUsuario,
+			Identificacion,
+			Nombre,
+			CorreoElectronico,
+			Contrasenna,
+			Estado,
+			ConsecutivoPerfil
+	FROM 	tbusuario
+    WHERE 	CorreoElectronico = pCorreoElectronico
+        AND Estado = 1;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `ValidarCuenta` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -195,4 +308,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-10-08 20:56:56
+-- Dump completed on 2025-10-15 21:04:56

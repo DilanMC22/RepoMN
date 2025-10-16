@@ -65,7 +65,7 @@
 
                 EnviarCorreo('Recuperar Acceso', $mensaje, $datos["CorreoElectronico"]);
 
-                header("Location: ../../View/Inicio/Principal.php");
+                header("Location: ../../View/Inicio/IniciarSesion.php");
                 exit;
             }
         }
