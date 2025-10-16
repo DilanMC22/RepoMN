@@ -41,4 +41,44 @@
         }
     }    
 
+    function ValidarCorreoModel($correoElectronico)
+    {
+        try
+        {
+            $context = OpenConnection();
+
+            $sentencia = "CALL ValidarCorreo('$correoElectronico')";
+            $resultado = $context -> query($sentencia);
+
+            //CloseConnection($context);
+
+            return $resultado;
+        }
+        catch(Exception $error)
+        {
+            SaveError($error);
+            return null;
+        }
+    }
+
+    function ActualizarContrasennaModel($ConsecutivoUsuario, $ContrasennaGenerada)
+    {
+        try
+        {
+            $context = OpenConnection();
+
+            $sentencia = "CALL ActualizarContrasenna('$ConsecutivoUsuario', '$ContrasennaGenerada')";
+            $resultado = $context -> query($sentencia);
+
+            CloseConnection($context);
+
+            return $resultado;
+        }
+        catch(Exception $error)
+        {
+            SaveError($error);
+            return false;
+        }
+    }
+
 ?>

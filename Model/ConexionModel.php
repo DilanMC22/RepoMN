@@ -8,7 +8,7 @@
 
     function CloseConnection($context)
     {
-        $context -> close();
+        mysqli_close($context);
     }
 
     function SaveError($error)
