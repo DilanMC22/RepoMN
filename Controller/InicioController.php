@@ -1,4 +1,5 @@
 <?php
+    include_once $_SERVER['DOCUMENT_ROOT'] . '/RepoMN/Controller/UtilesController.php';
     include_once $_SERVER['DOCUMENT_ROOT'] . '/RepoMN/Model/InicioModel.php';
 
     if(isset($_POST["btnCrearCuenta"]))
@@ -15,10 +16,8 @@
             header("Location: ../../View/Inicio/IniciarSesion.php");
             exit;
         }
-        else
-        {
-            $_POST["Mensaje"] = "No se ha podido crear la cuenta solicitada";
-        }
+
+        $_POST["Mensaje"] = "No se ha podido crear la cuenta solicitada";
     }
 
     if(isset($_POST["btnIniciarSesion"]))
@@ -33,10 +32,8 @@
             header("Location: ../../View/Inicio/Principal.php");
             exit;
         }
-        else
-        {
-            $_POST["Mensaje"] = "No se ha podido validar la cuenta ingresada";
-        }
+
+        $_POST["Mensaje"] = "No se ha podido validar la cuenta ingresada";
     }
 
     if(isset($_POST["btnRecuperarAcceso"]))
@@ -55,29 +52,25 @@
 
             //Actualizar la contraseña actual
             $resultadoActualizar = ActualizarContrasennaModel($datos["ConsecutivoUsuario"], $ContrasennaGenerada);
+            
+            if($resultadoActualizar)
+            {
+                //Notificarle por correo la nueva contraseña
+                $mensaje = "<html><body>
+                Estimado(a) " . $datos["Nombre"] . "<br><br>
+                Se ha generado la siguiente contraseña de acceso: <b>" . $ContrasennaGenerada . "</b><br>
+                Procure realizar el cambio de su contraseña una vez que ingrese al sistema.<br><br>
+                Muchas gracias.
+                </body></html>";
 
+                EnviarCorreo('Recuperar Acceso', $mensaje, $datos["CorreoElectronico"]);
 
-            //Notificarle por correo la nueva contraseña
-
-            header("Location: ../../View/Inicio/Principal.php");
-            exit;
+                header("Location: ../../View/Inicio/Principal.php");
+                exit;
+            }
         }
-        else
-        {
-            $_POST["Mensaje"] = "No se ha podido recuperar el acceso";
-        }
-    }
 
-    function GenerarContrasenna()
-    {
-        $length = 8;
-        $chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ0123456789';
-        $max = strlen($chars) - 1;
-        $pass = '';
-        for ($i = 0; $i < $length; $i++) {
-            $pass .= $chars[random_int(0, $max)];
-        }
-        return $pass;
+        $_POST["Mensaje"] = "No se ha podido recuperar el acceso";
     }
 
 ?>

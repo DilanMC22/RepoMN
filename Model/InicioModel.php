@@ -1,5 +1,5 @@
 <?php
-    include_once $_SERVER['DOCUMENT_ROOT'] . '/RepoMN/Model/ConexionModel.php';
+    include_once $_SERVER['DOCUMENT_ROOT'] . '/RepoMN/Model/UtilesModel.php';
 
     function CrearCuentaModel($identificacion,$nombre,$correoElectronico,$contrasenna)
     {
